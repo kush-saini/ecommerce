@@ -5,8 +5,8 @@ exports.Register = async (req, res) => {
   console.log("admin router /register api called");
   console.log("req body is => ", req.body);
   console.log("req file is => ", req.file);
-  const { name, email, password, mobile, confirmpassword } = req.body;
-  if (!name || !email || !password || !mobile || !confirmpassword) {
+  const { firstname, email, password, confirmpassword, lastname } = req.body;
+  if (!firstname || !email || !password || !confirmpassword || !lastname) {
     return res.status(400).json({ error: "All fields are required" });
   }
   const file = req.file?.path;
@@ -25,7 +25,8 @@ exports.Register = async (req, res) => {
         .json({ error: "password & confirm pasword dont match !!" });
     } else {
       const userData = new userDB({
-        name,
+        firstname,
+        lastname,
         email,
         password: hashPassword,
         userprofile: upload.secure_url,
