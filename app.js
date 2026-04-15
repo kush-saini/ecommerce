@@ -6,13 +6,15 @@ const cors = require("cors");
 
 const app = express();
 app.use(express.json());
-app.use(express.urlencoded({ extended: true })); 
+app.use(express.urlencoded({ extended: true }));
 const port = 4009;
 
 require("./db/conn");
 
 const adminAuthRoutes = require("./routes/admin/adminAuthRoutes");
+const userAuthRoutes = require("./routes/user/userAuthRoutes");
 app.use("/adminauth/api", adminAuthRoutes);
+app.use("/userauth/api", userAuthRoutes);
 
 app.get("/", (req, res) => {
   res.status(200).json("server started");
