@@ -11,10 +11,23 @@ const adminauthenticate = require("../../middleware/admin/adminauthenticate");
 //   userAuthController.Register,
 // );
 
-router.post("/addcategory",adminauthenticate, productController.AddCategory);
+router.post("/addcategory", adminauthenticate, productController.AddCategory);
 router.get("/getcategory", productController.GetCategory);
-router.post("/addProducts", [adminauthenticate,productUpload.single("productimage")], productController.AddProducts);
+router.post(
+  "/addProducts",
+  [adminauthenticate, productUpload.single("productimage")],
+  productController.AddProducts,
+);
 router.get("/getProducts", productController.getAllProducts);
 
+router.get("/getsingleProduct/:productid", productController.getSingleProduct);
+
+router.delete(
+  "/products/:productid",
+  adminauthenticate,
+  productController.DeleteProducts,
+);
+
+router.get("/getLatestProducts", productController.getLatestProducts);
 
 module.exports = router;
