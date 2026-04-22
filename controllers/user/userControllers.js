@@ -116,6 +116,7 @@ exports.getAlluser = async (req, res) => {
 };
 
 exports.userDelete = async (req, res) => {
+  console.log("inside user delete")
   const { userid } = req.params;
   try {
     const deleteuser = await userDB.findByIdAndDelete({ _id: userid });
