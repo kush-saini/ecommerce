@@ -89,3 +89,38 @@ exports.logout = async (req, res) => {
     console.log("error in logout => ", error);
   }
 };
+
+exports.getAlluser = async (req, res) => {
+  const page = req.query.page || 1;
+  const ITEM_PER_PAGE = 4;
+  try {
+    const skip = (page - 1) * ITEM_PER_PAGE;
+    const count = await userDB.countDocuments();
+    const pageCount = Math.ceil(count / ITEM_PER_PAGE);
+    const usersdata = await userDB
+      .find()
+      .limit(ITEM_PER_PAGE)
+      .skip(skip)
+      .sort({ _id: -1 });
+
+    res.status(200).json({
+      Pagination: {
+        count,
+        pageCount,
+      },
+      usersdata,
+    });
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};
+
+exports.userDelete = async (req, res) => {
+  const { userid } = req.params;
+  try {
+    const deleteuser = await userDB.findByIdAndDelete({ _id: userid });
+    res.status(200).json(deleteuser);
+  } catch (error) {
+    res.status(400).json(error.message);
+  }
+};

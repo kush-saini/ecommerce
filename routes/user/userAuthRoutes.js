@@ -4,6 +4,7 @@ const router = new express.Router();
 const userAuthController = require("./../../controllers/user/userControllers");
 const userUpload = require("./../../multerconfig/user/userStorageConfig");
 const userauthenticate = require("../../middleware/user/userauthenticate");
+const adminauthenticate = require("../../middleware/admin/adminauthenticate");
 
 router.post(
   "/register",
@@ -14,5 +15,12 @@ router.post(
 router.post("/login", userAuthController.Login);
 router.get("/userverify", userauthenticate, userAuthController.userVerify);
 router.get("/logout", userauthenticate, userAuthController.logout);
+
+router.get("/getAlluser", adminauthenticate, userAuthController.getAlluser);
+router.delete(
+  "/userdelete/:userid",
+  adminauthenticate,
+  userAuthController.userDelete,
+);
 
 module.exports = router;
