@@ -14,9 +14,12 @@ require("./db/conn");
 const adminAuthRoutes = require("./routes/admin/adminAuthRoutes");
 const userAuthRoutes = require("./routes/user/userAuthRoutes");
 const productroutes = require("./routes/products/productroutes");
+const cartsroutes = require("./routes/carts/cartroutes");
+
 app.use("/adminauth/api", adminAuthRoutes);
 app.use("/userauth/api", userAuthRoutes);
 app.use("/product/api", productroutes);
+app.use("/carts/api", cartsroutes);
 
 app.get("/", (req, res) => {
   res.status(200).json("server started");
